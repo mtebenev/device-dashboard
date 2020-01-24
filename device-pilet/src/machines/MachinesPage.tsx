@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Typography } from '@material-ui/core';
 import { IMachineInfo } from './IMachineInfo';
 import { MachineListPane } from './MachineListPane';
 import { MachineMapPane } from './MachineMapPane';
@@ -33,24 +34,26 @@ export class MachinesPage extends React.Component<IProps, IState> {
           this.setState({ ...this.state, selectedMachine: machine });
         }} />
         {this.state.selectedMachine && (
-          <div>
-            <div>
-              {this.state.selectedMachine.machine_type}
-            </div>
-            <div>
-              {this.state.selectedMachine.status}
-            </div>
-            <div>
+          <div className="details">
+            <div className="title">
+              <Typography variant="h4">
+                {this.state.selectedMachine.machine_type}
+              </Typography>
               {this.state.mode === 'overview'
-                ? <button onClick={() => { this.setState({ ...this.state, mode: 'details' }) }}>Show Details</button>
-                : <button onClick={() => { this.setState({ ...this.state, mode: 'overview' }) }}>Show Overview</button>
+                ? <button className="btn-mode" onClick={() => { this.setState({ ...this.state, mode: 'details' }) }}>Show Details</button>
+                : <button className="btn-mode" onClick={() => { this.setState({ ...this.state, mode: 'overview' }) }}>Show Overview</button>
               }
-
             </div>
-            <div>
+            <Typography variant="h5">
+              {this.state.selectedMachine.status}
+            </Typography>
+            <div className="details-container">
               {this.state.mode === 'overview'
                 ? <MachineMapPane machine={this.state.selectedMachine} />
-                : <MachineDetailsPane machine={this.state.selectedMachine} machineNoteService={this.props.machineNoteService} />
+                : <MachineDetailsPane
+                  machine={this.state.selectedMachine}
+                  notes={this.props.machineNoteService.getNotes(this.state.selectedMachine.id)}
+                  machineNoteService={this.props.machineNoteService} />
               }
             </div>
           </div>

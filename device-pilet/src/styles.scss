@@ -7,6 +7,19 @@
   border: 1px solid red;
   display: flex;
   flex-direction: row;
+  .details {
+    margin: 10px;
+    .title {
+      display: flex;
+      flex-direction: row;
+    }
+    .btn-mode {
+      margin-left: 20px;
+    }
+    .details-container {
+      margin-top: 15px;
+    }
+  }
 }
 
 .machine-list-pane {
@@ -19,6 +32,20 @@
       background: lightskyblue;
       cursor: pointer;
     }
+  }
+
+  .selected {
+    background: lightskyblue;
+  }
+}
+
+.machine-details-pane {
+  .header {
+    display: flex;
+    flex-direction: row;
+  }
+  .btn-add-note {
+    margin-left: 20px;
   }
 }
 

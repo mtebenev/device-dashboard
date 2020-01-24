@@ -1,17 +1,15 @@
 import * as React from 'react';
+import { Typography } from '@material-ui/core';
 import { IMachineInfo } from './IMachineInfo';
 import { MachineNoteService, IMachineNote } from './MachineNoteService';
 
 interface IProps {
   machine: IMachineInfo;
   machineNoteService: MachineNoteService;
-}
-
-interface IState {
   notes: IMachineNote[];
 }
 
-export class MachineDetailsPane extends React.Component<IProps, IState> {
+export class MachineDetailsPane extends React.Component<IProps> {
 
   constructor(props: IProps) {
     super(props);
@@ -20,20 +18,21 @@ export class MachineDetailsPane extends React.Component<IProps, IState> {
   }
   public render(): React.ReactNode {
     return (
-      <>
-        <div>
-          I am the details pane.
-          <button onClick={() => {
-            this.props.machineNoteService.addNote(this.props.machine.id);
-          }}>
+      <div className="machine-details-pane">
+        <div className="header">
+          <Typography variant="h5">
+            Notes
+            </Typography>
+          <button
+            className="btn-add-note"
+            onClick={() => {
+              this.props.machineNoteService.addNote(this.props.machine.id);
+            }}>
             Add Note
           </button>
         </div>
         <div>
-          <h1>Notes</h1>
-        </div>
-        <div>
-          {this.state.notes.map(n => (
+          {this.props.notes.map(n => (
             <>
               <div>
                 {n.date}
@@ -44,7 +43,7 @@ export class MachineDetailsPane extends React.Component<IProps, IState> {
             </>
           ))}
         </div>
-      </>
+      </div>
     );
   }
 }
