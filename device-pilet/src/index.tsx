@@ -1,9 +1,11 @@
-import { PiletApi} from 'sample-piral';
+import { PiletApi } from 'sample-piral';
+import { PiletModalsApi } from 'piral-modals';
 import * as React from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MachinesPage } from './machines/MachinesPage';
 import { createMachinesConnector } from './machines/MachinesConnector';
 import './styles.scss';
+import { MachineNoteService } from './machines/MachineNoteService';
 
 export function setup(app: PiletApi) {
   app.showNotification('Hello from Piral!');
@@ -43,18 +45,25 @@ export function setup(app: PiletApi) {
     </div>
   ));
 
+  // Modal
+  const modalApi = app as PiletModalsApi;
+  const noteService = new MachineNoteService(modalApi);
+
   app.registerTile(() => (
     <div className="tile">
       <b>This is the example tile from connector module.</b>
+      <button onClick={() => {
+        const api: PiletModalsApi = app;
+        noteService.addNote('some_id');
+      }}>Test</button>
       <MachinesView />
     </div>
   ));
 
   const connectedPage = cn(props => (
-    <MachinesPage machines={props.data}/>
+    <MachinesPage machines={props.data} />
   ));
 
   //app.registerPage('/machines', MachinesPage);
   app.registerPage('/machines', connectedPage);
-
 }

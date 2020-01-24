@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IMachineInfo } from './IMachineInfo';
+import { MachineListItem } from './MachineListItem';
 
 interface IProps {
   machines: IMachineInfo[];
@@ -7,13 +8,12 @@ interface IProps {
 }
 
 export const MachineListPane: React.FC<IProps> = (props) => (
-  <div>
-    I am list
+  <div className="machine-list-pane">
     {props.machines && props.machines.map(m => (
       <div onClick={() => {
         props.onMachineSelected(m.id);
       }}>
-        Machine: {m.id}
+        <MachineListItem machine={m} />
       </div>
     ))}
   </div>
