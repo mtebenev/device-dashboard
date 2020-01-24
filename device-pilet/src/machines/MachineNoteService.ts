@@ -9,7 +9,15 @@ export interface INoteModalOptions {
  * The machine note content.
  */
 export interface IMachineNote {
+
+  /**
+   * The note text.
+   */
   text: string;
+
+  /**
+   * JSON-serialized timestamp.
+   */
   date: string;
 }
 
@@ -54,10 +62,11 @@ export class MachineNoteService {
   private saveNote(machineId: string, noteText: string): void {
     const notesString = localStorage.getItem(MachineNoteService.STORAGE_ID);
     const notes: INoteStorage = notesString ? JSON.parse(notesString) : {};
+    const dateString = JSON.stringify(new Date());
     if (notes[machineId]) {
-      notes[machineId].push({ text: noteText, date: 'NOW' });
+      notes[machineId].push({ text: noteText, date: dateString });
     } else {
-      notes[machineId] = [{ text: noteText, date: 'NOW' }];
+      notes[machineId] = [{ text: noteText, date: dateString }];
     }
     localStorage.setItem(MachineNoteService.STORAGE_ID, JSON.stringify(notes));
   }

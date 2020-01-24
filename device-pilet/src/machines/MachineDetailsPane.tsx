@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Typography } from '@material-ui/core';
 import { IMachineInfo } from './IMachineInfo';
 import { MachineNoteService, IMachineNote } from './MachineNoteService';
+import { MachineNoteItem } from './MachineNoteItem';
 
 interface IProps {
   machine: IMachineInfo;
@@ -32,16 +33,7 @@ export class MachineDetailsPane extends React.Component<IProps> {
           </button>
         </div>
         <div>
-          {this.props.notes.map(n => (
-            <>
-              <div>
-                {n.date}
-              </div>
-              <div>
-                {n.text}
-              </div>
-            </>
-          ))}
+          {this.props.notes.map(n => (<MachineNoteItem note={n} />))}
         </div>
       </div>
     );

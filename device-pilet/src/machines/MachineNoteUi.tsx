@@ -34,5 +34,14 @@ export class MachineNoteModal extends React.Component<IProps> {
       </div>
     );
   }
+
+  /**
+   * React.Component
+   */
+  public componentDidMount(): void {
+    setTimeout(() => {
+      this.textInput.current.focus();
+    });
+  }
 }
 
