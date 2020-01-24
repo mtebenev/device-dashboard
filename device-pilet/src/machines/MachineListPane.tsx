@@ -10,11 +10,13 @@ interface IProps {
 export const MachineListPane: React.FC<IProps> = (props) => (
   <div className="machine-list-pane">
     {props.machines && props.machines.map(m => (
-      <div onClick={() => {
-        props.onMachineSelected(m.id);
-      }}>
-        <MachineListItem machine={m} />
-      </div>
+      <MachineListItem
+        machine={m}
+        onClick={
+          () => {
+            props.onMachineSelected(m.id);
+          }
+        } />
     ))}
   </div>
 );

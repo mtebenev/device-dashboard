@@ -1,20 +1,38 @@
 import * as React from 'react';
-import { PiletModalsApi } from 'piral-modals';
 import { INoteModalOptions } from './MachineNoteService';
 
 interface IProps {
   options: INoteModalOptions;
 }
 
-export const MachineNoteModal: React.FC<IProps> = (props) => (
-  <div>
-    This is machine note modal.
-  <button onClick={() => {
-      console.error(JSON.stringify(props));
-      props.options.onClose('SOME SAVED DATA');
-    }}>
-      Close
-  </button>
-  </div>
-);
+export class MachineNoteModal extends React.Component<IProps> {
+
+  private readonly textInput: React.RefObject<HTMLTextAreaElement>;
+
+  constructor(props: IProps) {
+    super(props);
+    this.textInput = React.createRef<HTMLTextAreaElement>()
+  }
+  public render(): React.ReactNode {
+    return (
+      <div className="note-modal">
+        <textarea ref={this.textInput}>
+        </textarea>
+        <div className="modal-actions">
+          <button onClick={() => {
+            const noteText = this.textInput.current.value;
+            this.props.options.onClose(noteText || undefined);
+          }}>
+            Save
+        </button>
+          <button onClick={() => {
+            this.props.options.onClose();
+          }}>
+            Cancel
+        </button>
+        </div>
+      </div>
+    );
+  }
+}
 

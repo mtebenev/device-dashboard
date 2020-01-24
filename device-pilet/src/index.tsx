@@ -61,7 +61,7 @@ export function setup(app: PiletApi) {
   ));
 
   const connectedPage = cn(props => (
-    <MachinesPage machines={props.data} />
+    <MachinesPage machines={props.data} machineNoteService={noteService} />
   ));
 
   //app.registerPage('/machines', MachinesPage);

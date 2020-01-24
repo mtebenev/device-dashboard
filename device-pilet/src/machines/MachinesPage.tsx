@@ -3,9 +3,11 @@ import { IMachineInfo } from './IMachineInfo';
 import { MachineListPane } from './MachineListPane';
 import { MachineMapPane } from './MachineMapPane';
 import { MachineDetailsPane } from './MachineDetailsPane';
+import { MachineNoteService } from './MachineNoteService';
 
 interface IProps {
   machines: IMachineInfo[]
+  machineNoteService: MachineNoteService;
 }
 
 interface IState {
@@ -21,7 +23,7 @@ export class MachinesPage extends React.Component<IProps, IState> {
     const selectedMachine = props.machines.length > 0
       ? props.machines[0]
       : undefined;
-    this.state = { selectedMachine, mode: 'overview' };
+    this.state = { selectedMachine, mode: 'details' };
   }
   public render(): React.ReactNode {
     return (
@@ -40,15 +42,15 @@ export class MachinesPage extends React.Component<IProps, IState> {
             </div>
             <div>
               {this.state.mode === 'overview'
-                ? <button onClick={() => {this.setState({...this.state, mode: 'details'})}}>Show Details</button>
-                : <button onClick={() => {this.setState({...this.state, mode: 'overview'})}}>Show Overview</button>
+                ? <button onClick={() => { this.setState({ ...this.state, mode: 'details' }) }}>Show Details</button>
+                : <button onClick={() => { this.setState({ ...this.state, mode: 'overview' }) }}>Show Overview</button>
               }
 
             </div>
             <div>
               {this.state.mode === 'overview'
                 ? <MachineMapPane machine={this.state.selectedMachine} />
-                : <MachineDetailsPane machine={this.state.selectedMachine} />
+                : <MachineDetailsPane machine={this.state.selectedMachine} machineNoteService={this.props.machineNoteService} />
               }
             </div>
           </div>

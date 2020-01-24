@@ -5,13 +5,13 @@ interface IProps {
   machine: IMachineInfo;
 }
 
-export const MachineListItem: React.FC<IProps> = (props) => (
-  <>
+export const MachineListItem: React.FC<IProps & React.HTMLProps<HTMLElement>> = (props) => (
+  <div className="list-item" onClick={props.onClick}>
     <div>
       {props.machine.machine_type}
     </div>
     <div>
       Status: {props.machine.status}
     </div>
-  </>
+  </div>
 );
