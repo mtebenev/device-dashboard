@@ -1,17 +1,14 @@
+import * as React from 'react';
 import { PiletApi } from 'sample-piral';
 import { PiletModalsApi } from 'piral-modals';
-import * as React from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MachinesPage } from './machines/MachinesPage';
 import { createMachinesConnector } from './machines/MachinesConnector';
 import './styles.scss';
 import { MachineNoteService } from './machines/MachineNoteService';
+import { PiletRegistry } from './PiletRegistry';
 
 export function setup(app: PiletApi) {
-  app.showNotification('Hello from Piral!');
-  app.registerMenu(() =>
-    <a href="https://docs.piral.io" target="_blank">Documentation</a>
-  );
   app.registerTile(() => <div>Welcome to Piral!</div>, {
     initialColumns: 2,
     initialRows: 1,
@@ -63,7 +60,5 @@ export function setup(app: PiletApi) {
   const connectedPage = cn(props => (
     <MachinesPage machines={props.data} machineNoteService={noteService} />
   ));
-
-  //app.registerPage('/machines', MachinesPage);
-  app.registerPage('/machines', connectedPage);
+  PiletRegistry.registerMachinesUi(app, connectedPage);
 }
