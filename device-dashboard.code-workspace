@@ -4,5 +4,11 @@
 			"path": "device-pilet"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.exclude": {
+			"**/.cache/": true,
+			"**/dist/": true,
+			"**/node_modules/**": true
+		}
+	}
 }
