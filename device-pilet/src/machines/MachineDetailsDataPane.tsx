@@ -1,20 +1,19 @@
 import * as React from 'react';
 import { PiletFeedsApi } from 'piral-feeds';
 import { withMachineDetailsConnector } from './MachineDetailsConnector';
+import { DetailTilesFactory } from './detail-tiles/DetailTilesFactory';
+import { IMachineDetails } from './Machine.interfaces';
 
 interface IProps {
-  data: any;
+  data: IMachineDetails;
 }
 
 /**
  * Displays the machine details data.
  */
 const MachineDetailsDataPaneImpl: React.FC<IProps> = (props) => (
-  <div>
-    I am the details
-    <div>
-      {JSON.stringify(props.data)}
-    </div>
+  <div className="machine-details-data-pane">
+    {DetailTilesFactory.createTiles(props.data)}
   </div>
 );
 
