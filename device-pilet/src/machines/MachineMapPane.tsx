@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Map, Marker, Popup, TileLayer, } from 'react-leaflet';
 import L from 'leaflet';
-import { IMachineInfo } from './IMachineInfo';
+import { IMachineInfo } from './Machine.interfaces';
 
 interface IProps {
   machine: IMachineInfo;

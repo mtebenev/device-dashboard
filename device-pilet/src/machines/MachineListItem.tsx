@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IMachineInfo } from './IMachineInfo';
+import { IMachineInfo } from './Machine.interfaces';
 
 interface IProps {
   machine: IMachineInfo;

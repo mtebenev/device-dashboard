@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Typography } from '@material-ui/core';
-import { IMachineInfo, IMachineEvent } from './IMachineInfo';
+import { IMachineInfo, IMachineEvent } from './Machine.interfaces';
 import { MachineListPane } from './MachineListPane';
 import { MachineMapPane } from './MachineMapPane';
 import { MachineDetailsPane } from './MachineDetailsPane';

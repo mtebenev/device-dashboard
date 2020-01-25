@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PiletFeedsApi } from 'piral-feeds';
 import { compose, renameProp } from 'recompose';
 import { withMachineEventsConnector } from './MachineEventsConnector';
-import { IMachineEvent, IMachineInfo } from './IMachineInfo';
+import { IMachineEvent, IMachineInfo } from './Machine.interfaces';
 import { TileComponentProps } from 'piral-dashboard';
 import { withMachinesConnector } from './MachinesConnector';
 
