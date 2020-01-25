@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { Typography } from '@material-ui/core';
-import { IMachineInfo } from './IMachineInfo';
+import { IMachineInfo, IMachineEvent } from './IMachineInfo';
 import { MachineListPane } from './MachineListPane';
 import { MachineMapPane } from './MachineMapPane';
 import { MachineDetailsPane } from './MachineDetailsPane';
 import { MachineNoteService } from './MachineNoteService';
+import { PiletFeedsApi } from 'piral-feeds';
 
 interface IProps {
-  machines: IMachineInfo[]
+  pilet: PiletFeedsApi;
+  machines: IMachineInfo[];
+  machineEvents: IMachineEvent[];
   machineNoteService: MachineNoteService;
 }
 
@@ -51,6 +54,7 @@ export class MachinesPage extends React.Component<IProps, IState> {
               {this.state.mode === 'overview'
                 ? <MachineMapPane machine={this.state.selectedMachine} />
                 : <MachineDetailsPane
+                  pilet={this.props.pilet}
                   machine={this.state.selectedMachine}
                   notes={this.props.machineNoteService.getNotes(this.state.selectedMachine.id)}
                   machineNoteService={this.props.machineNoteService} />

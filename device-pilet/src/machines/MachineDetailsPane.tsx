@@ -2,14 +2,19 @@ import * as React from 'react';
 import { Typography } from '@material-ui/core';
 import { IMachineInfo } from './IMachineInfo';
 import { MachineNoteService, IMachineNote } from './MachineNoteService';
-import { MachineNoteItem } from './MachineNoteItem';
+import { MachineNoteList } from './MachineNoteList';
+import { PiletFeedsApi } from 'piral-feeds';
 
 interface IProps {
+  pilet: PiletFeedsApi;
   machine: IMachineInfo;
   machineNoteService: MachineNoteService;
   notes: IMachineNote[];
 }
 
+/**
+ * The pane displays information about a specific machine (notes and details)
+ */
 export class MachineDetailsPane extends React.Component<IProps> {
 
   constructor(props: IProps) {
@@ -32,9 +37,7 @@ export class MachineDetailsPane extends React.Component<IProps> {
             Add Note
           </button>
         </div>
-        <div>
-          {this.props.notes.map(n => (<MachineNoteItem note={n} />))}
-        </div>
+        <MachineNoteList pilet={this.props.pilet} noteService={this.props.machineNoteService} machineId={this.props.machine.id} />
       </div>
     );
   }
