@@ -25,6 +25,7 @@
     "path-to-regexp": "1.8.0",
     "piral-cli": "^0.10.0-pre.853",
     "piral-core": "^0.10.0-pre.853",
+    "piral-dashboard": "^0.10.0-pre.853",
     "piral-feeds": "^0.10.0-pre.853",
     "piral-modals": "^0.10.0-pre.853",
     "piral-menu": "^0.10.0-pre.853",
