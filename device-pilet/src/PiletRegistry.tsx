@@ -17,6 +17,7 @@ export class PiletRegistry {
 
     // The page
     piletApi.registerPage('/machines', pageComponent);
+    piletApi.registerPage('/machines/:id', pageComponent);
 
     // The menu
     const MachinesMenu: React.FC = () => (

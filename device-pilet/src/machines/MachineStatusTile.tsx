@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PiletFeedsApi } from 'piral-feeds';
+import { Link } from 'react-router-dom';
 import { compose, renameProp } from 'recompose';
 import { withMachineEventsConnector } from './MachineEventsConnector';
 import { IMachineEvent, IMachineInfo } from './Machine.interfaces';
@@ -27,7 +28,10 @@ const StatusItem: React.FC<{
 }> = (props) => (
   <div>
     <div>
-      {props.machine ? props.machine.machine_type : 'UNKOWN MACHINE'}
+      {props.machine
+        ? <Link to={`/machines/${props.machine.id}`}>{props.machine.machine_type}</Link>
+        : 'UNKOWN MACHINE'
+      }
     </div>
     <div>
       EVENT DATA HERE

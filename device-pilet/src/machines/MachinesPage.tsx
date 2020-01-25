@@ -6,6 +6,7 @@ import { MachineMapPane } from './MachineMapPane';
 import { MachineDetailsPane } from './MachineDetailsPane';
 import { MachineNoteService } from './MachineNoteService';
 import { PiletFeedsApi } from 'piral-feeds';
+import { PageComponentProps } from 'piral-core';
 
 interface IProps {
   pilet: PiletFeedsApi;
@@ -19,15 +20,17 @@ interface IState {
   mode: 'overview' | 'details';
 }
 
-export class MachinesPage extends React.Component<IProps, IState> {
+export class MachinesPage extends React.Component<IProps & PageComponentProps, IState> {
 
-  constructor(props: IProps) {
+  constructor(props: IProps & PageComponentProps) {
     super(props);
 
+    const paramId = props.match.params.id;
     const selectedMachine = props.machines.length > 0
-      ? props.machines[0]
-      : undefined;
-    this.state = { selectedMachine, mode: 'details' };
+      && paramId
+      && props.machines.find(m => m.id === paramId);
+    const mode = selectedMachine ? 'details' : 'overview';
+    this.state = { selectedMachine, mode };
   }
   public render(): React.ReactNode {
     return (
