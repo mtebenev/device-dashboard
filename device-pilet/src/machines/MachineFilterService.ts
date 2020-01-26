@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SearchOptions, SearchResultType, PiletSearchApi } from 'piral-search';
 import { PiletApi } from 'sample-piral';
 import { IMachineInfo } from './Machine.interfaces';
@@ -11,10 +11,14 @@ export class MachineFilterService {
   /**
    * Emits when user filters the machine list.
    */
-  public readonly queryChange: BehaviorSubject<string>;
+  private readonly _queryChange: BehaviorSubject<string>;
 
   constructor() {
-    this.queryChange = new BehaviorSubject<string>('');
+    this._queryChange = new BehaviorSubject<string>('');
+  }
+
+  public get queryChange(): Observable<string> {
+    return this._queryChange;
   }
 
   /**
@@ -22,8 +26,12 @@ export class MachineFilterService {
    */
   public register(searchApi: PiletSearchApi): void {
     searchApi.registerSearchProvider(
-      (options: SearchOptions, api: PiletApi) => this.search(options)
-    );
+      (options: SearchOptions, api: PiletApi) => this.search(options),
+      {
+        onClear: () => {
+          this._queryChange.next('');
+        }
+      });
   }
 
   /**
@@ -33,8 +41,8 @@ export class MachineFilterService {
 
     let result = machines;
 
-    if (this.queryChange.value) {
-      const tokens = this.queryChange.value.split(' ');
+    if (this._queryChange.value) {
+      const tokens = this._queryChange.value.split(' ');
       if (tokens.length > 0) {
         result = machines.filter(m =>
           tokens.some(t => m.machine_type.includes(t)
@@ -47,7 +55,7 @@ export class MachineFilterService {
 
 
   private search(options: SearchOptions): Promise<SearchResultType | Array<SearchResultType>> {
-    this.queryChange.next(options.query);
+    this._queryChange.next(options.query);
     // We do not output any search result. Just trigger the filter change.
     return Promise.resolve([]);
   }
