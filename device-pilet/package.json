@@ -15,6 +15,7 @@
   "devDependencies": {
     "@dbeining/react-atom": "4.1.5",
     "@libre/atom": "1.3.3",
+    "@types/leaflet": "1.5.4",
     "@types/node": "latest",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
@@ -29,6 +30,7 @@
     "piral-feeds": "^0.10.0-pre.853",
     "piral-modals": "^0.10.0-pre.853",
     "piral-menu": "^0.10.0-pre.853",
+    "piral-search": "^0.10.0-pre.853",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router": "5.1.2",

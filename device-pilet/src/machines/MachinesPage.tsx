@@ -55,7 +55,7 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
             </Typography>
             <div className="details-container">
               {this.state.mode === 'overview'
-                ? <MachineMapPane machine={this.state.selectedMachine} />
+                ? <MachineMapPane pilet={this.props.pilet} />
                 : <MachineDetailsPane
                   pilet={this.props.pilet}
                   machine={this.state.selectedMachine}

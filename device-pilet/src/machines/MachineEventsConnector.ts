@@ -15,9 +15,16 @@ export function withMachineEventsConnector(
 ): FeedConnector<IMachineEvent[]> {
   console.error(`withMachineEventsConnector: ${pilet}`);
 
+  const mockEvents: IMachineEvent[] = [
+    { timestamp: "2020-01-13T05:41:50.637392Z", status: "finished", machineId: '59d9f4b4-018f-43d8-92d0-c51de7d987e5' },
+    { timestamp: "2019-11-06T21:53:45.112245Z", status: "running", machineId: '59d9f4b4-018f-43d8-92d0-c51de7d987e5' },
+    { timestamp: "2019-10-24T21:45:09.906606Z", status: "finished", machineId: '59d9f4b4-018f-43d8-92d0-c51de7d987e5' },
+    { timestamp: "2019-10-03T21:31:15.748327Z", status: "finished", machineId: '59d9f4b4-018f-43d8-92d0-c51de7d987e5' }
+  ];
+
   const options: FeedConnectorOptions<IMachineEvent[], IMachineEvent> = {
     initialize: () => {
-      return Promise.resolve([]);
+      return Promise.resolve(mockEvents);
     },
     connect: (callback: (value: IMachineEvent) => void) => {
       const ws = new WebSocket('ws://machinestream.herokuapp.com/api/v1/events/websocket?vsn=2.0.0');
