@@ -43,20 +43,24 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
           machines={this.props.machines}
           selectedMachineId={this.state.selectedMachine ? this.state.selectedMachine.id : undefined}
         />
-        {this.state.selectedMachine && (
+        {(
           <div className="details">
-            <div className="title">
-              <Typography variant="h4">
-                {this.state.selectedMachine.machine_type}
-              </Typography>
-              {this.state.mode === 'overview'
-                ? <button className="btn-mode" onClick={() => { this.setState({ ...this.state, mode: 'details' }) }}>Show Details</button>
-                : <button className="btn-mode" onClick={() => { this.setState({ ...this.state, mode: 'overview' }) }}>Show Overview</button>
-              }
-            </div>
-            <MachineStatusLabel status={this.state.selectedMachine.status} variant="h5" />
+            {this.state.selectedMachine && (
+              <>
+                {this.state.mode === 'overview'
+                  ? <button onClick={() => { this.setState({ ...this.state, mode: 'details' }) }}>Show Details</button>
+                  : <button onClick={() => { this.setState({ ...this.state, mode: 'overview' }) }}>Show Overview</button>
+                }
+                <div className="title">
+                  <Typography variant="h4">
+                    {this.state.selectedMachine.machine_type}
+                  </Typography>
+                </div>
+                <MachineStatusLabel status={this.state.selectedMachine.status} variant="h5" />
+              </>
+            )}
             <div className="details-container">
-              {this.state.mode === 'overview'
+              {(this.state.mode === 'overview' || !this.state.selectedMachine)
                 ? <MachineMapPane pilet={this.props.pilet} machineFilterService={this.props.machineFilterService} />
                 : <MachineDetailsPane
                   pilet={this.props.pilet}
@@ -66,7 +70,8 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
               }
             </div>
           </div>
-        )}
+        )
+        }
       </div>
     );
   }
@@ -79,7 +84,7 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
       const newState = { ...this.state, selectedMachine: selectedMachine };
 
       // Auto enter the details mode if a new machine selected.
-      if(selectedMachine) {
+      if (selectedMachine) {
         newState.mode = 'details';
       }
       this.setState(newState);
