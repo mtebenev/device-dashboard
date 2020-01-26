@@ -38,10 +38,10 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
   public render(): React.ReactNode {
     return (
       <div className="machines-page">
-        <MachineListPane machines={this.props.machines} onMachineSelected={(machineId) => {
-          const machine = this.props.machines.find(m => m.id === machineId);
-          this.setState({ ...this.state, selectedMachine: machine });
-        }} />
+        <MachineListPane
+          machines={this.props.machines}
+          selectedMachineId={this.state.selectedMachine ? this.state.selectedMachine.id : undefined}
+        />
         {this.state.selectedMachine && (
           <div className="details">
             <div className="title">
@@ -53,7 +53,7 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
                 : <button className="btn-mode" onClick={() => { this.setState({ ...this.state, mode: 'overview' }) }}>Show Overview</button>
               }
             </div>
-            <MachineStatusLabel status={this.state.selectedMachine.status} variant="h5"/>
+            <MachineStatusLabel status={this.state.selectedMachine.status} variant="h5" />
             <div className="details-container">
               {this.state.mode === 'overview'
                 ? <MachineMapPane pilet={this.props.pilet} machineFilterService={this.props.machineFilterService} />
