@@ -8,12 +8,14 @@ import { MachineNoteService } from './MachineNoteService';
 import { PiletFeedsApi } from 'piral-feeds';
 import { PageComponentProps } from 'piral-core';
 import { MachineStatusLabel } from './MachineStatusLabel';
+import { MachineFilterService } from './MachineFilterService';
 
 interface IProps {
   pilet: PiletFeedsApi;
   machines: IMachineInfo[];
   machineEvents: IMachineEvent[];
   machineNoteService: MachineNoteService;
+  machineFilterService: MachineFilterService;
 }
 
 interface IState {
@@ -54,7 +56,7 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
             <MachineStatusLabel status={this.state.selectedMachine.status} variant="h5"/>
             <div className="details-container">
               {this.state.mode === 'overview'
-                ? <MachineMapPane pilet={this.props.pilet} />
+                ? <MachineMapPane pilet={this.props.pilet} machineFilterService={this.props.machineFilterService} />
                 : <MachineDetailsPane
                   pilet={this.props.pilet}
                   machine={this.state.selectedMachine}

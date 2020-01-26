@@ -4,12 +4,16 @@ import { Icon, Bounds, Point } from 'leaflet';
 import { PiletFeedsApi } from 'piral-feeds';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
+import { compose, renameProp, withProps } from 'recompose';
 import { IMachineInfo } from './Machine.interfaces';
 import { withMachinesConnector } from './MachinesConnector';
 import { MachineStatusLabel } from './MachineStatusLabel';
+import { withMachinesFilter } from './MachinesFilter';
+import { MachineFilterService } from './MachineFilterService';
 
 interface IProps {
-  data: IMachineInfo[];
+  machines: IMachineInfo[];
+  machineFilterService: MachineFilterService;
 }
 
 export const pointerIcon = new Icon({
@@ -19,7 +23,7 @@ export const pointerIcon = new Icon({
 
 export const MachineMapPaneImpl: React.FC<IProps> = (props) => {
 
-  const points = props.data.map(m => new Point(m.longitude, m.latitude));
+  const points = props.machines.map(m => new Point(m.longitude, m.latitude));
   const bounds = new Bounds(points);
 
   const position = [bounds.getCenter().x, bounds.getCenter().y];
@@ -29,7 +33,7 @@ export const MachineMapPaneImpl: React.FC<IProps> = (props) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      {props.data.map(m => (
+      {props.machines.map(m => (
         <Marker position={[m.longitude, m.latitude]} icon={pointerIcon}>
           <Popup>
             <div>
@@ -47,12 +51,12 @@ export const MachineMapPaneImpl: React.FC<IProps> = (props) => {
   );
 }
 
-interface IOuterProps {
-  pilet: PiletFeedsApi;
-}
+export const MachineMapPane = ({ pilet, machineFilterService }) => React.createElement(
+  compose(
+    withProps(() => {return {machineFilterService}}),
+    withMachinesConnector(pilet),
+    renameProp('data', 'machines'),
+    withMachinesFilter
+  )(MachineMapPaneImpl));
 
-export const MachineMapPane: React.FC<IOuterProps> = props =>
-  React.createElement(
-    withMachinesConnector(props.pilet)<IOuterProps>(MachineMapPaneImpl),
-    props
-  );
+

@@ -45,6 +45,7 @@ export function setup(app: PiletApi) {
       machines={props.machines}
       machineEvents={props.events}
       machineNoteService={noteService}
+      machineFilterService={machineFilterService}
       {...props}
     />
   ));
