@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { Typography } from '@material-ui/core';
 import { IMachineInfo } from './Machine.interfaces';
+import { MachineStatusLabel } from './MachineStatusLabel';
 
 interface IProps {
   machine: IMachineInfo;
@@ -12,10 +14,10 @@ export const MachineListItem: React.FC<IProps & React.HTMLProps<HTMLElement>> = 
     onClick={props.onClick}
   >
     <div>
-      {props.machine.machine_type}
+      <Typography variant="subtitle1">{props.machine.machine_type}</Typography>
     </div>
     <div>
-      Status: {props.machine.status}
+      <MachineStatusLabel status={props.machine.status} variant="subtitle2" />
     </div>
   </div>
 );

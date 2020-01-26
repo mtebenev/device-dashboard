@@ -5,6 +5,8 @@ import { PiletFeedsApi } from 'piral-feeds';
 import { Link } from 'react-router-dom';
 import { IMachineInfo } from './Machine.interfaces';
 import { withMachinesConnector } from './MachinesConnector';
+import { Typography } from '@material-ui/core';
+import { MachineStatusLabel } from './MachineStatusLabel';
 
 interface IProps {
   data: IMachineInfo[];
@@ -30,9 +32,15 @@ export const MachineMapPaneImpl: React.FC<IProps> = (props) => {
       {props.data.map(m => (
         <Marker position={[m.longitude, m.latitude]} icon={pointerIcon}>
           <Popup>
-            <div><Link to={`/machines/${m.id}`}>{m.machine_type}</Link></div>
-            <div>{m.status}</div>
-        </Popup>
+            <div>
+              <Typography variant="body1">
+                <Link to={`/machines/${m.id}`}>{m.machine_type}</Link>
+              </Typography>
+            </div>
+            <div>
+              <MachineStatusLabel status={m.status} variant="body2" />
+            </div>
+          </Popup>
         </Marker>
       ))}
     </Map>

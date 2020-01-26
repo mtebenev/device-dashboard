@@ -7,6 +7,7 @@ import { MachineDetailsPane } from './MachineDetailsPane';
 import { MachineNoteService } from './MachineNoteService';
 import { PiletFeedsApi } from 'piral-feeds';
 import { PageComponentProps } from 'piral-core';
+import { MachineStatusLabel } from './MachineStatusLabel';
 
 interface IProps {
   pilet: PiletFeedsApi;
@@ -50,9 +51,7 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
                 : <button className="btn-mode" onClick={() => { this.setState({ ...this.state, mode: 'overview' }) }}>Show Overview</button>
               }
             </div>
-            <Typography variant="h5">
-              {this.state.selectedMachine.status}
-            </Typography>
+            <MachineStatusLabel status={this.state.selectedMachine.status} variant="h5"/>
             <div className="details-container">
               {this.state.mode === 'overview'
                 ? <MachineMapPane pilet={this.props.pilet} />

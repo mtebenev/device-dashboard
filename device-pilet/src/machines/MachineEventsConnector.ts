@@ -1,5 +1,4 @@
 import { PiletFeedsApi, FeedConnector, FeedConnectorOptions } from 'piral-feeds';
-import { Socket } from 'phoenix';
 import { IMachineEvent } from './Machine.interfaces';
 
 /**
@@ -13,7 +12,6 @@ export function withMachineEventsConnector(
   machineId?: string,
   limit?: number
 ): FeedConnector<IMachineEvent[]> {
-  console.error(`withMachineEventsConnector: ${pilet}`);
 
   const mockEvents: IMachineEvent[] = [
     { timestamp: "2020-01-13T05:41:50.637392Z", status: "finished", machineId: '59d9f4b4-018f-43d8-92d0-c51de7d987e5' },
