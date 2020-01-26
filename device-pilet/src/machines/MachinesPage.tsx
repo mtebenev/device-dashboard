@@ -28,13 +28,14 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
   constructor(props: IProps & PageComponentProps) {
     super(props);
 
-    const paramId = props.match.params.id;
-    const selectedMachine = props.machines.length > 0
-      && paramId
-      && props.machines.find(m => m.id === paramId);
+    const selectedMachine = this.getSelectedMachine();
     const mode = selectedMachine ? 'details' : 'overview';
     this.state = { selectedMachine, mode };
   }
+
+  /**
+   * React.Component
+   */
   public render(): React.ReactNode {
     return (
       <div className="machines-page">
@@ -68,5 +69,26 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
         )}
       </div>
     );
+  }
+
+  public componentDidUpdate() {
+    // Update machine selection on route change
+    const selectedMachine = this.getSelectedMachine();
+    if ((this.state.selectedMachine && selectedMachine && this.state.selectedMachine.id !== selectedMachine.id) ||
+      (selectedMachine != this.state.selectedMachine)) {
+      this.setState({ ...this.state, selectedMachine: selectedMachine });
+    }
+  }
+
+  /**
+   * Checks for the selected machine in route params.
+   */
+  private getSelectedMachine(): IMachineInfo | undefined {
+    const paramId = this.props.match.params.id;
+    const selectedMachine = this.props.machines.length > 0
+      && paramId
+      && this.props.machines.find(m => m.id === paramId);
+
+    return selectedMachine;
   }
 }
