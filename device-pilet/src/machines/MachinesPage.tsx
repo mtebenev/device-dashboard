@@ -76,7 +76,13 @@ export class MachinesPage extends React.Component<IProps & PageComponentProps, I
     const selectedMachine = this.getSelectedMachine();
     if ((this.state.selectedMachine && selectedMachine && this.state.selectedMachine.id !== selectedMachine.id) ||
       (selectedMachine != this.state.selectedMachine)) {
-      this.setState({ ...this.state, selectedMachine: selectedMachine });
+      const newState = { ...this.state, selectedMachine: selectedMachine };
+
+      // Auto enter the details mode if a new machine selected.
+      if(selectedMachine) {
+        newState.mode = 'details';
+      }
+      this.setState(newState);
     }
   }
 
