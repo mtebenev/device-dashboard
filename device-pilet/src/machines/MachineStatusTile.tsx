@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { Variant } from '@material-ui/core/styles/createTypography';
 import { compose, renameProp } from 'recompose';
-import IntlRelativeTimeFormat from '@formatjs/intl-relativetimeformat';
 import { withMachineEventsConnector } from './MachineEventsConnector';
 import { IMachineEvent, IMachineInfo } from './Machine.interfaces';
 import { TileComponentProps } from 'piral-dashboard';
@@ -16,10 +15,6 @@ interface IProps {
   events: IMachineEvent[];
   machines: IMachineInfo[];
 }
-
-IntlRelativeTimeFormat.__addLocaleData(
-  require('@formatjs/intl-relativetimeformat/dist/locale-data/en.json')
-);
 
 const MachineStatusTileImpl: React.FC<IProps & TileComponentProps> = (props) => (
   <div>

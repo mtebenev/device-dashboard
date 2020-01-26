@@ -22,7 +22,7 @@ export class MachineFilterService {
    */
   public register(searchApi: PiletSearchApi): void {
     searchApi.registerSearchProvider(
-      (options: SearchOptions, api: PiletApi) => this.search(options, api)
+      (options: SearchOptions, api: PiletApi) => this.search(options)
     );
   }
 
@@ -30,16 +30,23 @@ export class MachineFilterService {
    * Filter the machine list according to the current search query
    */
   public filterMachines(machines: IMachineInfo[]): IMachineInfo[] {
+
+    let result = machines;
+
     if (this.queryChange.value) {
-      const n = parseInt(this.queryChange.value);
-      return machines.slice(0, n);
-    } else {
-      return machines;
+      const tokens = this.queryChange.value.split(' ');
+      if (tokens.length > 0) {
+        result = machines.filter(m =>
+          tokens.some(t => m.machine_type.includes(t)
+            || tokens.some(t => m.status.includes(t)))
+        );
+      }
     }
+    return result;
   }
 
 
-  private search(options: SearchOptions, api: PiletApi): Promise<SearchResultType | Array<SearchResultType>> {
+  private search(options: SearchOptions): Promise<SearchResultType | Array<SearchResultType>> {
     this.queryChange.next(options.query);
     // We do not output any search result. Just trigger the filter change.
     return Promise.resolve([]);
