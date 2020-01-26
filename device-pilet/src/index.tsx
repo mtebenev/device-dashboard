@@ -6,13 +6,16 @@ import { MachinesPage } from './machines/MachinesPage';
 import { withMachineEventsConnector } from './machines/MachineEventsConnector';
 import { withMachinesConnector } from './machines/MachinesConnector';
 import { MachineNoteService } from './machines/MachineNoteService';
-import { PiletRegistry } from './PiletRegistry';
+import { Link } from 'react-router-dom';
 import { IMachineInfo, IMachineEvent } from './machines/Machine.interfaces';
 import { compose, renameProp, withProps } from 'recompose';
-import { PageComponentProps } from 'piral-core';
+import { PageComponentProps, PiletCoreApi } from 'piral-core';
 import { PiletSearchApi } from 'piral-search';
 import { MachineFilterService } from './machines/MachineFilterService';
 import { withMachinesFilter } from './machines/MachinesFilter';
+import { PiletMenuApi } from 'piral-menu';
+import { PiletDashboardApi } from 'piral-dashboard';
+import { MachineStatusTile } from './machines/MachineStatusTile';
 import './styles.scss';
 
 export function setup(app: PiletApi) {
@@ -46,5 +49,22 @@ export function setup(app: PiletApi) {
     />
   ));
 
-  PiletRegistry.registerMachinesUi(app, MachinesPageWithData);
+  // The page
+  const piletCoreApi: PiletCoreApi = app as PiletCoreApi;
+  piletCoreApi.registerPage('/machines', MachinesPageWithData as any);
+  piletCoreApi.registerPage('/machines/:id', MachinesPageWithData as any);
+
+  // The menu
+  const MachinesMenu: React.FC = () => (
+    <Link to="/machines">Machines</Link>
+  );
+  const piletMenuApi: PiletMenuApi = app as PiletMenuApi;
+  piletMenuApi.registerMenu(MachinesMenu);
+
+  // The tile
+  const piletDashboardApi: PiletDashboardApi = app as PiletDashboardApi;
+  piletDashboardApi.registerTile(MachineStatusTile, {
+    initialColumns: 4,
+    initialRows: 2,
+  });
 }
