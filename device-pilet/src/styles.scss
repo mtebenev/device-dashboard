@@ -51,6 +51,10 @@
   .note-item {
     margin: 15px;
   }
+  .no-notes-banner {
+    margin-top: 20px;
+    color: rgba(0, 0, 0, 0.2);
+  }
 
   .machine-details-data-pane {
     display: flex;
@@ -94,4 +98,8 @@
   .error {
     color: red;
   }
+}
+
+.tile-item {
+  margin-top: 5px;
 }

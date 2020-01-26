@@ -3,9 +3,9 @@ import { Map, Marker, Popup, TileLayer, } from 'react-leaflet';
 import { Icon, Bounds, Point } from 'leaflet';
 import { PiletFeedsApi } from 'piral-feeds';
 import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 import { IMachineInfo } from './Machine.interfaces';
 import { withMachinesConnector } from './MachinesConnector';
-import { Typography } from '@material-ui/core';
 import { MachineStatusLabel } from './MachineStatusLabel';
 
 interface IProps {

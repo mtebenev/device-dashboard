@@ -65,6 +65,7 @@ export function setup(app: PiletApi) {
   const piletDashboardApi: PiletDashboardApi = app as PiletDashboardApi;
   piletDashboardApi.registerTile(MachineStatusTile, {
     initialColumns: 4,
-    initialRows: 2,
+    initialRows: 8,
+
   });
 }
